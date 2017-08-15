@@ -8,7 +8,7 @@ class Squares
   end
 
   def sum_of_squares
-    (@num*(@num+1)*((2*@num)+1))/6
+    (@num * (@num + 1) * ((2 * @num) + 1)) / 6
   end
 
   def difference

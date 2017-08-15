@@ -8,10 +8,10 @@ class Sieve
     @primes[0] = @primes[1] = nil
     @primes.each do |number|
       next unless number
-      break if number * number > @num 
-      (number*number).step(@num, number) { |val| @primes[val] = nil }
-    end 
-    @primes.compact 
+      break if number * number > @num
+      (number * number).step(@num, number) { |val| @primes[val] = nil }
+    end
+    @primes.compact
   end
 end
 

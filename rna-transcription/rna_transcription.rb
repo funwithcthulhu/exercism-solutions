@@ -1,22 +1,20 @@
 class Complement
-
   def self.of_dna(dna_strand)
     switch = true
     rna_strand = dna_strand.split('').map do |nucleotide|
-      case
-      when nucleotide == 'G'
+      if nucleotide == 'G'
         'C'
-      when nucleotide == 'C'
+      elsif nucleotide == 'C'
         'G'
-      when nucleotide == 'A'
+      elsif nucleotide == 'A'
         'U'
-      when nucleotide == 'T'
+      elsif nucleotide == 'T'
         'A'
-      when nucleotide != 'G' || 'C' || 'A' || 'T'
+      else
         switch = false
       end
     end
-    return switch ? rna_strand.join('') : ''
+    switch ? rna_strand.join('') : ''
   end
 end
 

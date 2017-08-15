@@ -1,27 +1,13 @@
 class Raindrops
   def self.convert(number)
-    case 
-    when number % 3 == 0 && number % 5 == 0 && number % 7 == 0
-      'PlingPlangPlong'
-    when number % 3 == 0 && number % 5 == 0
-      'PlingPlang'
-    when number % 3 == 0 && number % 7 == 0
-      'PlingPlong'
-    when number % 5 == 0 && number % 7 == 0
-      'PlangPlong'
-    when number % 3 == 0
-      'Pling'
-    when number % 5 == 0
-      'Plang'
-    when number % 7 == 0
-      'Plong'
-    else
-      return number.to_s
-    end
+    answer = []
+    answer << 'Pling' if (number % 3).zero?
+    answer << 'Plang' if (number % 5).zero?
+    answer << 'Plong' if (number % 7).zero?
+    answer.empty? ? number.to_s : answer.join
   end
 end
 
 module BookKeeping
   VERSION = 3
 end
-
