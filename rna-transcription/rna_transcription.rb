@@ -1,20 +1,16 @@
+# translates a strand of dna into it's complement rna
 class Complement
   def self.of_dna(dna_strand)
-    switch = true
     rna_strand = dna_strand.split('').map do |nucleotide|
-      if nucleotide == 'G'
-        'C'
-      elsif nucleotide == 'C'
-        'G'
-      elsif nucleotide == 'A'
-        'U'
-      elsif nucleotide == 'T'
-        'A'
-      else
-        switch = false
+      case nucleotide
+      when 'G' then 'C'
+      when 'C' then 'G'
+      when 'A' then 'U'
+      when 'T' then 'A'
+      else return ''
       end
     end
-    switch ? rna_strand.join('') : ''
+    rna_strand.join('')
   end
 end
 
