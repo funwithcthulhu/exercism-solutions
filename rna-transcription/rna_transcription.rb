@@ -1,17 +1,17 @@
-# translates a strand of dna into it's complement rna
+# Translates DNA strand into complementary RNA strand
 class Complement
   def self.of_dna(dna_strand)
-    rna_strand = dna_strand.split('').map do |nucleotide|
-      case nucleotide
-      when 'G' then 'C'
-      when 'C' then 'G'
-      when 'A' then 'U'
-      when 'T' then 'A'
-      else return ''
-      end
-    end
-    rna_strand.join('')
+    return '' unless dna_strand.gsub(/[GCAT]/, '').empty?
+    dna_strand.gsub(/[GCAT]/, DICT)
   end
+
+  DICT =
+    {
+      'G' => 'C',
+      'C' => 'G',
+      'A' => 'U',
+      'T' => 'A'
+    }.freeze
 end
 
 module BookKeeping
