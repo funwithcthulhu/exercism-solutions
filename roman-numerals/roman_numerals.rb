@@ -1,39 +1,35 @@
+# Allows conversion of integers to roman numerals
 class Integer
   def to_roman
-    dictionary = {
-      1 => 'I',
-      2 => 'II',
-      3 => 'III',
-      4 => 'IV',
-      5 => 'V',
-      6 => 'VI',
-      7 => 'VII',
-      10 => 'X',
-      50 => 'L',
-      100 => '',
-      1000 => 'M'
-    }
-    case self 
-    when 1
-      'I'
-    when 2
-      'II'
-    when 3
-      'III'
-    when 4
-      'IV'
-    when 5
-      'V'
-    when 6
-      'VI'
-    when 7
-      'VII'
-    when 8
-      'VIII'
-    when 9
-      'IX'
-    when 10
-      'X'
+    integer = self
+    numeral = ''
+    DICT.each do |arabic, roman|
+      while integer >= arabic
+        numeral << roman
+        integer -= arabic
+      end
     end
-  end 
+    numeral
+  end
+
+  DICT =
+    {
+      1000 => 'M',
+      900 => 'CM',
+      500 => 'D',
+      400 => 'CD',
+      100 => 'C',
+      90 => 'XC',
+      50 => 'L',
+      40 => 'XL',
+      10 => 'X',
+      9 => 'IX',
+      5 => 'V',
+      4 => 'IV',
+      1 => 'I'
+    }.freeze
+end
+
+module BookKeeping
+  VERSION = 2
 end
