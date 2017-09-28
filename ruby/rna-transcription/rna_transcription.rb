@@ -2,16 +2,8 @@
 class Complement
   def self.of_dna(dna_strand)
     return '' if dna_strand.match?(/[^GCAT]/)
-    dna_strand.gsub(/[GCAT]/, DICT)
+    dna_strand.tr('GCAT', 'CGUA')
   end
-
-  DICT =
-    {
-      'G' => 'C',
-      'C' => 'G',
-      'A' => 'U',
-      'T' => 'A'
-    }.freeze
 end
 
 module BookKeeping
