@@ -1,7 +1,7 @@
 # Implementation of 'accumulate' map method
 class Array
   def accumulate
-    return to_enum(__method__, size) unless block_given?
+    return to_enum(__method__) { size } unless block_given?
     reduce([]) do |array, val|
       array.push(yield val)
     end

@@ -1,7 +1,7 @@
 # Translates DNA strand into complementary RNA strand
 class Complement
   def self.of_dna(dna_strand)
-    return '' unless dna_strand.gsub(/[GCAT]/, '').empty?
+    return '' if dna_strand.match?(/[^GCAT]/)
     dna_strand.gsub(/[GCAT]/, DICT)
   end
 

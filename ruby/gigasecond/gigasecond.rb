@@ -1,6 +1,6 @@
 class Gigasecond
-  def self.from(date)
-    date + 10**9
+  def self.from(time)
+    time + 1000000000
   end
 end
 
