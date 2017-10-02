@@ -1,17 +1,17 @@
-# Returns a moment 1 gigasecond from input
 class Gigasecond
   GIGASECOND = 1_000_000_000
-  def self.from(time)
-    verify_input(time)
-    time + GIGASECOND
+
+  def self.from(year, month = 1, day = 1, hour = 1, minute = 0, second = 0)
+    moment = check_object(year)
+    moment ||= Time.new(year, month, day, hour, minute, second)
+    moment + GIGASECOND
   end
 
-  private
-
-  def self.verify_input(time)
-    msg = 'Please input Time object or moment in seconds'
-    raise ArgumentError.new, msg unless time.is_a?(Time) || time.is_a?(Integer)
+  def self.check_object(year)
+    year.is_a?(Time) ? year : nil
   end
+  
+  private_class_method :check_object
 end
 
 module BookKeeping
