@@ -7,7 +7,9 @@ class Primes
     ind = 0
     until sieve[ind] == sieve.last
       val = sieve[ind]
-      sieve.each_index { |i| sieve[i] = 0 if (sieve[i] % val).zero? && sieve[i] > val }
+      sieve.each_index do |i|
+        sieve[i] = 0 if (sieve[i] % val).zero? && sieve[i] > val
+      end
       ind += 1
       sieve.delete(0)
     end
