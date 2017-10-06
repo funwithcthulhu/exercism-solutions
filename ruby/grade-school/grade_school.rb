@@ -15,10 +15,6 @@ class School
   end
 
   def students_by_grade
-    @school.each_pair do |key, value|
-      grade = {}
-      @by_grade << grade[:grade] = value
-    end
-    @by_grade
+
   end
 end
