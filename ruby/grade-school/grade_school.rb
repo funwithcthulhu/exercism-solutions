@@ -1,7 +1,7 @@
 # class for creating a school roster
 class School
   def initialize
-    @db = Hash.new([])
+    @db = Hash.new { |hash, key| hash[key] = [] }
   end
 
   def students(grade)
@@ -9,13 +9,12 @@ class School
   end
 
   def add(student, grade)
-    @db[grade] = [] unless @db.key?(grade)
     @db[grade] << student
   end
 
   def students_by_grade
-    @db.keys.sort.map do |grade|
-      { grade: grade, students: students(grade) }
+    @db.sort.map do |grade, students|
+      { grade: grade, students: students.sort }
     end
   end
 end
