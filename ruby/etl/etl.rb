@@ -1,12 +1,8 @@
 # Transforms scrabble scoring data
 module ETL
   def self.transform(old_data)
-    {}.tap do |new_data|
-      old_data.each_pair do |score, letters|
-        letters.each do |letter|
-          new_data[letter.downcase] = score
-        end
-      end
+    old_data.each_with_object({}) do |(score, letters), new_data|
+      letters.size.times { |i| new_data[letters[i].downcase] = score }
     end
   end
 end
