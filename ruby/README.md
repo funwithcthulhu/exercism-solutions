@@ -1,3 +1,3 @@
 # exercism_problems
 
-challenges from exercism.com
+challenges from exercism.io
