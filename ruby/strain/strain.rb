@@ -2,19 +2,19 @@
 class Array
   def keep
     return to_enum(__method__) { size } unless block_given?
-    [].tap do |new_array|
-      each do |x|
-        new_array << x if yield x
+    new_array = []
+      self.size.times do |x|
+        new_array << self[x] if yield self[x]
       end
-    end
+    new_array
   end
 
   def discard
     return to_enum(__method__) { size } unless block_given?
-    [].tap do |new_array|
-      each do |x|
-        new_array << x unless yield x
+    new_array = []
+      self.size.times do |x|
+        new_array << self[x] unless yield self[x]
       end
-    end
+    new_array
   end
 end
