@@ -1,13 +1,13 @@
 #include "binary_search.h"
 
-int* binary_search(int target, int arr[], size_t length)
+int* binary_search(int_fast16_t target, int arr[], size_t length)
 {
 	if (!arr || !length)
 		return NULL;
 
-	int middle;
-	int max = length - 1;
-	int min = 0;
+	int_fast16_t middle;
+	int_fast16_t max = length - 1;
+	int_fast16_t min = 0;
 
 	do
 	{
