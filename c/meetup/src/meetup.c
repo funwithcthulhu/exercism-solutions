@@ -9,50 +9,54 @@ const char *DAYS_OF_WEEK[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thur
 
 int meetup_day_of_month(int year, int month, char *monthday, char *day)
 {
-	int jan_first = january_first(year);
-	int days_months_prior = 0;
-	int int_day_of_week;
-	int teenths[7];
-	char *temp = calloc(10, sizeof(char));
 
-	for (int j = 0; j < 7; j++)
-	{
-		memset(temp, '\0', 10);
-		temp = strdup(DAYS_OF_WEEK[j]);
-		if (strcmp(temp, day) == 0)
-		{
-			int_day_of_week = j;
-			printf("day of week: %i\n", int_day_of_week);
-			break;
-			
-		}
-		
-	}
+	int jan_first = january_first(year);
+	int int_day_of_week = dayOfWeek(day);
+	int days_months_prior = 0;
+	int teenths[7];
+
+	if (is_leap_year(year) && month > 2)
+		days_months_prior += 1;
 	
 	// get total days of all months prior to target month
 	for (int i = 1; i < month; i++)
-	{
 		days_months_prior += DAYS_OF_MONTH[i];
-	}
 
-	// get first xxxxxx of month
+	// get x of month
 	int first_of_month = (jan_first + days_months_prior) % 7;
-	int first_x_day = 1;
+	int x_day = 1;
 	int times = 0;
-	for (int d = first_of_month; d < first_of_month + 7; d++)
+	int max_days = DAYS_OF_MONTH[month] + first_of_month;
+
+	// add 1 for 29 days in feb of a leap year
+	if (is_leap_year(year) && month == 2)
+		max_days += 1;
+
+	for (int d = first_of_month; d < max_days; d++)
 	{
 		if (int_day_of_week == (d % 7))
-		{
 			times += 1;
-			
-			break;
-		}
-			
-		first_x_day++;
-	}
+		
+		if (strcmp(monthday, "first") == 0 && times == 1)
+			return x_day;
 
-	if (strcmp(monthday, "first") == 0)
-		return first_x_day;
+		if (strcmp(monthday, "second") == 0 && times == 2)
+			return x_day;
+
+		if (strcmp(monthday, "third") == 0 && times == 3)
+			return x_day;
+
+		if (strcmp(monthday, "fourth") == 0 && times == 4)
+			return x_day;
+
+		if (strcmp(monthday, "fifth") == 0 && times == 5)
+			return x_day;
+
+		if (strcmp(monthday, "last") == 0 && (max_days - d <= 7) && int_day_of_week == (d % 7))
+			return x_day;
+
+		x_day++;
+	}	
 
 	// generate teenths
 	int m = 12;
@@ -67,17 +71,28 @@ int meetup_day_of_month(int year, int month, char *monthday, char *day)
 	{
 		for (int o = 0; o < 7; o++)
 		{
-			printf("teenths: %i\n", teenths[o]);
 			if (teenths[o] == int_day_of_week)
-			{
 				return o + 13;
-			}
-
 		}
 	}
 
-	int day_number = -1;
-	return day_number;
+	return 0;
+}
+
+// convert day to day of week == 0-6 (Sunday == 0)
+int dayOfWeek(char *day)
+{
+	char *temp = calloc(10, sizeof(char));
+	for (int j = 0; j < 7; j++)
+	{
+		memset(temp, '\0', 10);
+		temp = strdup(DAYS_OF_WEEK[j]);
+		if (strcmp(temp, day) == 0)
+			return j;
+	}
+	free(temp);
+
+	return -1; // only reaches here returns if there is something wrong
 }
 
 int is_leap_year(unsigned short year)
@@ -85,6 +100,7 @@ int is_leap_year(unsigned short year)
 	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
+// Disparate variation of Gauss's algorithm
 int january_first(int year)
 {
 	int y = year % 100 - 1;
@@ -95,6 +111,7 @@ int january_first(int year)
 	return mod((29 + y + var + (c/4) - (2 * c)), 7);
 }
 
+// implementation of modulo which works with negative numbers
 int mod(int a, int b)
 {
     int r = a % b;
