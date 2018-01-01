@@ -1,4 +1,7 @@
 class Words
-  count: ->
+  constructor: (words) ->
+    @words = words
+    @table = {}
+  count: -> 
     
 module.exports = Words

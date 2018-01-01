@@ -1,7 +1,7 @@
 'use strict'
 
-const primeFactors =  {
-  for: function(input) {
+class primeFactors {
+  static for(input) {
     let factors = [];
     let largest_factor = input;
     let candidate = 2;

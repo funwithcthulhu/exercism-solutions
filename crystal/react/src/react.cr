@@ -1,30 +1,40 @@
 # Please implement your solution to react in this file
 module React
   class InputCell
+    def initialize(data : Int32)
+      @data = data
+    end
 
-    def initialize(value : Int32)
-      @value = value
+    def value=(data)
+      @data = data
     end
 
     def value
-      @value
+      @data
     end
 
-    def value=(value)
-      @value = value
+    def +(other)
+      @data += other.value
     end
   end
 
   class ComputeCell
-    def initialize(*args)
-      @value = 0
-      args.each do |input|
-        @value += yield input.value
+    def initialize(*cells : InputCell, &block)
+      @cell = React::InputCell.new(0)   
+      cells.each do |cell|
+        @cell.value += cell.value
+      end
+    end
+
+    def initialize(*cells : ComputeCell, &block)
+      @cell = React::InputCell.new(0)   
+      cells.each do |cell|
+        @cell.value += cell.value
       end
     end
 
     def value
-      @value
+      return @cell
     end
   end
 end
